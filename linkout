@@ -1,0 +1,9 @@
+function main(arg) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  let match = urlRegex.exec(arg);
+  if (match && match[0]) {
+   return(match[0]);
+  } else {
+    return("未找到匹配的链接");
+  }
+}
