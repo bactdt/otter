@@ -1,0 +1,17 @@
+async function main(arg) {
+  var url = "";//这里需要添加翻译接口，https://www.52pojie.cn/thread-1863856-1-1.html
+  var params = { "text": arg };
+  const json = await otterRequest(url, "get", params);
+  if (json.body) {
+    try {
+      const res = JSON.parse(json.body);
+      return res.data.translate_result;
+    } catch (error) {
+      console.error("JSON 解析错误:", error);
+      return null;
+    }
+  } else {
+    console.error("未能获取有效的响应体:", json);
+    return null;
+  }
+}
