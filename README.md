@@ -5,6 +5,8 @@
 * 文本翻译
 ---
 [] 时间获取
----
+
+
+----
 软件链接
 [Otter Keyboard Tool](https://appraven.net/app/69393803)
