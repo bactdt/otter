@@ -1,3 +1,4 @@
+//提取链接
 function main(arg) {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   let match = urlRegex.exec(arg);
