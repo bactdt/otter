@@ -1,0 +1,39 @@
+// author: 叙白
+// date: 2024-09-28
+// name: Deeplx中外互译.js
+// 注意: 需添加变量deeplx_key，L站获取，本人只是搬运自叙白，并去除了谷歌
+// 使用： 要翻译成英文或中文，在翻译文本前加“中/英”， 例： 中我要回家，将会翻译成英文
+
+async function output() {
+    const text = $searchText || $pasteboardContent || "测试文本";
+    if (!text) return "请输入要翻译的文本"; // 检查输入是否为空
+    
+    // 直接使用传入的文本进行翻译，假设用户已正确标注语言
+    let target = text.startsWith("中") ? "ZH" : "EN"; // 根据文本前缀判断目标语言
+    let translatedText = await translate(text.replace(/^中|英/, ''), target); // 去掉前缀并翻译
+    return translatedText;
+}
+
+async function translate(text, target) {
+    const payload = {
+        text: text,
+        source_lang: "auto",
+        target_lang: target
+    };
+    try {
+        const response = await $http({
+            url: `https://api.deeplx.org/deeplx_key/translate`,
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
+            body: payload,
+        });
+        if (response.response.statusCode !== 200) {
+            return "请求失败";
+        }
+        $log(response.data);
+        return JSON.parse(response.data).data;
+    } catch (error) {
+        $log(error);
+        return null;
+    }
+}
