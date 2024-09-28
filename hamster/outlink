@@ -1,0 +1,13 @@
+// 从剪贴板提取链接
+async function output() {
+    // 获取剪贴板内容
+    const $arg = $pasteboardContent || "没有剪贴板内容";
+    const $urlRegex = /(https?:\/\/[^\s]+)/g;
+    let $match = $urlRegex.exec($arg);
+    
+    if ($match && $match[0]) {
+        return $match[0]; // 返回找到的链接
+    } else {
+        return "未找到匹配的链接"; // 返回未找到信息
+    }
+}
